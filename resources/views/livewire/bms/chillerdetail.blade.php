@@ -255,7 +255,7 @@ $chiller_switch = function(){
 ?>
 
 <div>
-    <div class="row" wire:poll='read'>
+    <div class="row" wire:poll.visible='read'>
         <div class="col-12 mt-3">
             <div class="card  ">
                 <div class="card-body">

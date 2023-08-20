@@ -23,7 +23,7 @@ use Livewire\Volt\Volt;
 
 Route::middleware('auth')->group(function () {
 
-    Volt::route('/',dashboard::class)->name('dashboard');
+    Volt::route('/','dashboard')->name('dashboard');
 
     Route::prefix('bms')->name('bms.')->group(function(){
         Volt::route('/','bms.dashboard')->name('dashboard');

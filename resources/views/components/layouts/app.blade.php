@@ -336,11 +336,15 @@
                                 <div class="dropdown-divider"></div>
 
                                 <!-- item-->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                <a href="{{route('logout')}}"
+                                onclick="event.preventDefault();
+                                            this.closest('form').submit();" class="dropdown-item notify-item">
                                     <i class="ri-logout-box-line"></i>
                                     <span>Logout</span>
                                 </a>
-
+                                </form>
                             </div>
                         </li>
 

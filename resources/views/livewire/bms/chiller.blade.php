@@ -151,7 +151,7 @@ $getdata = function(){
 <div class="col-md-6 col-xl-3">
     <a href="{{route('bms.chiller',$chiller->id)}}">
     <div class="card">
-        <div class="card-body" wire:poll='getdata' >
+        <div class="card-body" wire:poll.visible='getdata' >
             <div class="text-center" dir="ltr">
                 <h5>{{$chiller->chiller_no}}</h5>
 
