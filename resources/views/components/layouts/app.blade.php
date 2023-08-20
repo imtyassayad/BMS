@@ -558,7 +558,7 @@
                                     <div class="dropdown-menu" aria-labelledby="topnav-dashboard">
                                         <a  href="{{route('dashboard')}}" class="dropdown-item">Management</a>
                                         <a  href="{{route('bms.dashboard')}}" class="dropdown-item">BMS</a>
-                                        {{-- <a href="dashboard-analytics.html" class="dropdown-item">Analytics</a> --}}
+                                        <a href="#" class="dropdown-item">Comming Soon</a>
                                     </div>
                                 </li>
 
