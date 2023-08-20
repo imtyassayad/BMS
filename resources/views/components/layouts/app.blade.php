@@ -10,7 +10,14 @@
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="assets/images/favicon.ico">
+        <link rel="shortcut icon" href="{{asset('web/assets/images/favicon.ico')}}">
+
+         <!-- Plugins css -->
+         <link href="{{asset('web/assets/libs/mohithg-switchery/switchery.min.css')}}" rel="stylesheet" type="text/css" />
+         <link href="{{asset('web/assets/libs/multiselect/css/multi-select.css')}}" rel="stylesheet" type="text/css" />
+         <link href="{{asset('web/assets/libs/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
+         <link href="{{asset('web/assets/libs/selectize/css/selectize.bootstrap3.css')}}" rel="stylesheet" type="text/css" />
+         <link href="{{asset('web/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css')}}" rel="stylesheet" type="text/css" />
 
         <!-- App css -->
         <link href="{{asset('web/assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" id="bs-stylesheet" />
@@ -25,7 +32,6 @@
 
         <!-- Begin page -->
         <div id="wrapper">
-
             <!-- Topbar Start -->
             <div class="navbar-custom">
                 <div class="container-fluid">
@@ -75,7 +81,7 @@
                                             <!-- item-->
                                             <a href="javascript:void(0);" class="dropdown-item notify-item">
                                                 <div class="d-flex">
-                                                    <img class="d-flex me-2 rounded-circle" src="assets/images/users/avatar-2.jpg')}}" alt="Generic placeholder image" height="32">
+                                                    <img class="d-flex me-2 rounded-circle" src="{{asset('web/assets/images/users/avatar-2.jpg')}}" alt="Generic placeholder image" height="32">
                                                     <div>
                                                         <h5 class="m-0 font-14">Erwin E. Brown</h5>
                                                         <span class="font-12 mb-0">UI Designer</span>
@@ -86,7 +92,7 @@
                                             <!-- item-->
                                             <a href="javascript:void(0);" class="dropdown-item notify-item">
                                                 <div class="d-flex">
-                                                    <img class="d-flex me-2 rounded-circle" src="assets/images/users/avatar-5.jpg')}}" alt="Generic placeholder image" height="32">
+                                                    <img class="d-flex me-2 rounded-circle" src="{{asset('web/assets/images/users/avatar-5.jpg')}}" alt="Generic placeholder image" height="32">
                                                     <div>
                                                         <h5 class="m-0 font-14">Jacob Deo</h5>
                                                         <span class="font-12 mb-0">Developer</span>
@@ -550,9 +556,9 @@
                                         <i class="ri-dashboard-line me-1"></i> Dashboards <div class="arrow-down"></div>
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="topnav-dashboard">
-                                        <a href="index.html" class="dropdown-item">Sales</a>
-                                        <a href="dashboard-crm.html" class="dropdown-item">CRM</a>
-                                        <a href="dashboard-analytics.html" class="dropdown-item">Analytics</a>
+                                        <a  href="{{route('dashboard')}}" class="dropdown-item">Management</a>
+                                        <a  href="{{route('bms.dashboard')}}" class="dropdown-item">BMS</a>
+                                        {{-- <a href="dashboard-analytics.html" class="dropdown-item">Analytics</a> --}}
                                     </div>
                                 </li>
 
@@ -1286,10 +1292,30 @@
         <!-- Vendor js -->
         <script src="{{asset('web/assets/js/vendor.min.js')}}"></script>
 
+         <!-- KNOB JS -->
+         <script src="{{asset('web/assets/libs/jquery-knob/jquery.knob.min.js')}}"></script>
+
         <!-- Apex js-->
         <script src="{{asset('web/assets/libs/apexcharts/apexcharts.min.js')}}"></script>
         <script src="{{asset('web/assets/libs/moment/min/moment.min.js')}}"></script>
         <script src="{{asset('web/assets/libs/jquery.scrollto/jquery.scrollTo.min.js')}}"></script>
+
+        <!-- Plugins Js -->
+        <script src="{{asset('web/assets/libs/selectize/js/standalone/selectize.min.js')}}"></script>
+        <script src="{{asset('web/assets/libs/mohithg-switchery/switchery.min.js')}}"></script>
+        <script src="{{asset('web/assets/libs/multiselect/js/jquery.multi-select.js')}}"></script>
+        <script src="{{asset('web/assets/libs/jquery.quicksearch/jquery.quicksearch.min.js')}}"></script>
+        <script src="{{asset('web/assets/libs/select2/js/select2.min.js')}}"></script>
+        <script src="{{asset('web/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js')}}"></script>
+        <script src="{{asset('web/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js')}}"></script>
+
+
+        <!-- init js -->
+        <script src="{{asset('web/assets/js/pages/form-advanced.init.js')}}"></script>
+
+
+         <!-- Widgets demo js-->
+         <script src="{{asset('web/assets/js/pages/widgets.init.js')}}"></script>
 
         <!-- TODO js-->
         <script src="{{asset('web/assets/js/pages/jquery.todo.js')}}"></script>

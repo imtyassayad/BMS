@@ -140,19 +140,19 @@ use function Livewire\Volt\{state};
                                 <h4 class="fw-normal mt-3">
                                     <span>6,510</span>
                                 </h4>
-                                <p class="text-muted mb-0 mb-2"><i class="mdi mdi-checkbox-blank-circle text-warning"></i> Total Sent</p>
+                                <p class="text-muted  mb-2"><i class="mdi mdi-checkbox-blank-circle text-warning"></i> Total Sent</p>
                             </div>
                             <div class="col-md-4">
                                 <h4 class="fw-normal mt-3">
                                     <span>3,487</span>
                                 </h4>
-                                <p class="text-muted mb-0 mb-2"><i class="mdi mdi-checkbox-blank-circle text-success"></i> Reached</p>
+                                <p class="text-muted  mb-2"><i class="mdi mdi-checkbox-blank-circle text-success"></i> Reached</p>
                             </div>
                             <div class="col-md-4">
                                 <h4 class="fw-normal mt-3">
                                     <span>1,568</span>
                                 </h4>
-                                <p class="text-muted mb-0 mb-2"><i class="mdi mdi-checkbox-blank-circle text-primary"></i> Opened</p>
+                                <p class="text-muted  mb-2"><i class="mdi mdi-checkbox-blank-circle text-primary"></i> Opened</p>
                             </div>
                         </div>
                     </div>

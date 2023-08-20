@@ -23,8 +23,13 @@ use Livewire\Volt\Volt;
 
 Route::middleware('auth')->group(function () {
 
-   Volt::route('/','dashboard')->name('dashboard');
+    Volt::route('/',dashboard::class)->name('dashboard');
 
+    Route::prefix('bms')->name('bms.')->group(function(){
+        Volt::route('/','bms.dashboard')->name('dashboard');
+        Volt::route('chiller/{id}','bms.chillerdetail')->name('chiller');
+
+    });
 });
 
 require __DIR__.'/auth.php';
