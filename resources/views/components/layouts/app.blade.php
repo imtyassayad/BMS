@@ -20,7 +20,7 @@
          <link href="{{asset('web/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css')}}" rel="stylesheet" type="text/css" />
 
         <!-- App css -->
-        <link href="{{asset('web/assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" id="bs-stylesheet" />
+        <link href="/web/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bs-stylesheet" />
         <link href="{{asset('web/assets/css/app.min.css')}}" rel="stylesheet" type="text/css" id="app-stylesheet" />
 
         <!-- icons -->
