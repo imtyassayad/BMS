@@ -19,9 +19,9 @@
          <link href="{{asset('web/assets/libs/selectize/css/selectize.bootstrap3.css')}}" rel="stylesheet" type="text/css" />
          <link href="{{asset('web/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css')}}" rel="stylesheet" type="text/css" />
         <!-- ION Slider -->
-        <link href="/web/assets/libs/ion-rangeslider/css/ion.rangeSlider.min.css" rel="stylesheet" type="text/css"/>
+        <link href="{{asset('web/assets/libs/ion-rangeslider/css/ion.rangeSlider.min.css')}}" rel="stylesheet" type="text/css"/>
         <!-- App css -->
-        <link href="/web/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bs-stylesheet" />
+        <link href="{{asset('web/assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" id="bs-stylesheet" />
         <link href="{{asset('web/assets/css/app.min.css')}}" rel="stylesheet" type="text/css" id="app-stylesheet" />
 
         <!-- icons -->
