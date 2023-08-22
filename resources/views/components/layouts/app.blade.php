@@ -878,7 +878,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-6">
-                                <script>document.write(new Date().getFullYear())</script> &copy; Minton theme by <a href="#">Coderthemes</a>
+                                <script>document.write(new Date().getFullYear())</script> &copy; Hotem Management by <a href="https::/ziainnovation.com">Zia Innovation</a>
                             </div>
                             <div class="col-md-6">
                                 <div class="text-md-end footer-links d-none d-sm-block">
