@@ -8578,6 +8578,8 @@ span.flatpickr-weekday {
     border: 3px solid silver;
     border-radius: 15px;
     box-shadow: 5px 5px 10px gray;
+    position: relative;
+    overflow: hidden;
 }
 
 .ahu p{
@@ -8603,7 +8605,15 @@ span.flatpickr-weekday {
     width: 100%;
 
 }
-
+.ahu_valve{
+    position: absolute;
+    width: 10px;
+    height: 100%;
+    bottom: 0;
+    right: 5px;
+    background-color: green;
+    transition: all ease 4s;
+}
 
 @keyframes startfan {
     from {transform: rotate(0deg)}

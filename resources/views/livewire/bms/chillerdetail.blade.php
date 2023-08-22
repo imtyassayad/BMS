@@ -65,7 +65,10 @@ mount(function($id){
     $this->set();
     $this->get();
 
-
+    $a = ahu::where('chiller_id',$this->chiller_id)->first();
+    $this->ahu_status = $a->status;
+    $c = chiller::find($this->chiller_id);
+    $this->status = $c->status;
 
 });
 
@@ -365,16 +368,16 @@ $chiller_switch = function(){
 };
 $speed_ahu = function(){
     if ($this->rt > 25 and $this->rt  <= 30) {
-       $this->ahu_speed = .1;
+       $this->ahu_speed = 10;
     }
     if ($this->rt > 20 and $this->rt  <= 25) {
-        $this->ahu_speed = .3;
+        $this->ahu_speed = 40;
     }
     if ($this->rt > 15 and $this->rt  <= 20) {
-        $this->ahu_speed = .6;
+        $this->ahu_speed = 60;
     }
     if ($this->rt > 10 and $this->rt  <= 15) {
-        $this->ahu_speed = .9;
+        $this->ahu_speed = 90;
     }
 };
 
@@ -608,14 +611,16 @@ $speed_ahu = function(){
                 <div class="card-body" >
                     <div class="text-center" dir="ltr">
                         <h5> AHU. 1</h5>
+
                         <div class="ahu">
+                            <div class="ahu_valve" style="height: {{$ahu_speed}}% !important" > </div>
                             <div class="reading">
                                 <p>In</p>
                                 <h5>Air: {{$ahu_air_in}}&deg;C</h5>
                                 <h5>Water: {{$ahu_water_in}}&deg;C</h5>
                             </div>
                             <div class="fan">
-                                <img style="animation:{{ $ahu_status == 1 ? 'startfan': ''}} {{ $ahu_speed.'s'}} infinite linear" class="fan_img" src="{{ asset('web/assets/images/condensor_fan.png') }}" alt="" srcset="">
+                                <img style="animation:{{ $ahu_status == 1 ? 'startfan': ''}} .1s infinite linear" class="fan_img" src="{{ asset('web/assets/images/condensor_fan.png') }}" alt="" srcset="">
                             </div>
                             <div class="reading">
                                 <p>Out</p>
