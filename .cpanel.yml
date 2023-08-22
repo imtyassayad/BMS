@@ -1,4 +1,4 @@
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/ziainnov/hms.ziainnovation.com/
+    - export DEPLOYPATH=/home/ziainnov/hotel.ziainnovation.com/
     - /bin/cp * $DEPLOYPATH
