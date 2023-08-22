@@ -65,10 +65,10 @@ mount(function($id){
     $this->set();
     $this->get();
 
-    // $a = ahu::where('chiller_id',$this->chiller_id)->first();
-    // $this->ahu_status = $a->status;
-    // $c = chiller::find($this->chiller_id);
-    // $this->status = $c->status;
+    $a = ahu::where('chiller_id',$this->chiller_id)->first();
+    $this->ahu_status = $a->status;
+    $c = chiller::find($this->chiller_id);
+    $this->status = $c->status;
 
 });
 
