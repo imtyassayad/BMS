@@ -12,11 +12,11 @@
         <link rel="shortcut icon" href="{{asset('web/assets/images/favicon.ico')}}">
 
 		<!-- App css -->
-		<link href="{{assett('web/assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" id="bs-stylesheet" />
-		<link href="{{assett('web/assets/css/app.min.css')}}" rel="stylesheet" type="text/css" id="app-stylesheet" />
+		<link href="{{asset('web/assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" id="bs-stylesheet" />
+		<link href="{{asset('web/assets/css/app.min.css')}}" rel="stylesheet" type="text/css" id="app-stylesheet" />
 
 		<!-- icons -->
-		<link href="{{assett('web/assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
+		<link href="{{asset('web/assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
 
     </head>
 
@@ -31,7 +31,7 @@
                             <div class="card-body p-4">
 
                                 <div class="error-ghost text-center">
-                                    <img src="assets/images/error.svg" width="200" alt="error-image"/>
+                                    <img src="{{asset('web/assets/images/error.svg')}}" width="200" alt="error-image"/>
                                 </div>
 
                                 <div class="text-center">
@@ -40,7 +40,7 @@
                                         it happens to the best of us. You might want to check your internet connection.
                                         Here's a little tip that might help you get back on track.</p>
 
-                                    <a class="btn btn-primary mt-3" href="index.html"><i class="mdi mdi-reply me-1"></i> Return Home</a>
+                                    <a class="btn btn-primary mt-3" href="{{route('dashboard')}}"><i class="mdi mdi-reply me-1"></i> Return Home</a>
                                 </div>
 
                             </div> <!-- end card-body -->

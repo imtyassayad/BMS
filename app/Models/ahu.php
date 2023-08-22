@@ -2,20 +2,19 @@
 
 namespace App\Models;
 
-use App\Models\ahu;
+use App\Models\chiller;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class chiller extends Model
+class ahu extends Model
 {
     use HasFactory;
 
     protected $guarded =[];
 
-    public function ahu()
+    public function chiller()
     {
-        return $this->hasMany(ahu::class);
+        return $this->BelongsTo(chiller::class);
     }
-
-
 }

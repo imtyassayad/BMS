@@ -8463,7 +8463,7 @@ span.flatpickr-weekday {
 }
 
 .switch{
-    width: 80%;
+    width: 20%;
     height: 50px;
     /* border: 1px solid black; */
     display: flex;
@@ -8506,12 +8506,14 @@ span.flatpickr-weekday {
     width: 100%;
     position: absolute;
     left: 0;
-    top: 0;
+    top: 8px;
+
 }
 .fan{
     width: 60%;
     border: 2px solid #000;
     border-radius: 50%;
+    box-shadow: 5px 5px 10px gray;
 }
 
 .fan_img{
@@ -8539,10 +8541,10 @@ span.flatpickr-weekday {
 
 }
 
-.loading{
+.loading_state{
     width: 100%;
     height: 100vh;
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, .4);
     position: absolute;
     top: 0;
     left:0;
@@ -8566,6 +8568,43 @@ span.flatpickr-weekday {
     width: 100%;
 
 }
+
+.ahu{
+    background-color: blue;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding:  10px 15px;
+    border: 3px solid silver;
+    border-radius: 15px;
+    box-shadow: 5px 5px 10px gray;
+}
+
+.ahu p{
+    margin: 2px auto 0px auto;
+}
+.ahu .reading h5 {
+    color: #fff;
+    margin: 1px auto;
+
+}
+.ahu .reading p {
+    color: #fff;
+    margin: 1px auto;
+}
+.ahu .fan{
+    background-color: red;
+    width: 20%;
+
+
+}
+.ahu .fan img{
+
+    width: 100%;
+
+}
+
+
 @keyframes startfan {
     from {transform: rotate(0deg)}
     to {transform: rotate(360deg)}

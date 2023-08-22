@@ -3,6 +3,8 @@
 use function Livewire\Volt\{state,mount};
 
 use App\Models\chiller;
+use App\Models\ahu;
+
 
 state([
     'chiller_id',
@@ -21,14 +23,20 @@ state([
     'ld',
     'condensor_switch',
     'condensor_rpm',
-    'condensor_speed'
+    'condensor_speed',
+    'ahu_speed',
+    'ahu_status',
+    'ahu_water_in',
+    'ahu_air_in',
+    'ahu_water_out',
+    'ahu_air_out',
 ]);
 
 mount(function($id){
 
 
     $this->chiller_id = $id;
-    $this->loading = true;
+    // $this->loading = 1;
 
     $this->intial = -135;
     $this->intial_t = -115;
@@ -44,10 +52,18 @@ mount(function($id){
     $this->condensor_switch=[];
     $this->condensor_rpm=[];
     $this->condensor_speed=[0,0,0,0];
-    $this->status = 1;
+    $this->ahu_speed =0;
+    $this->ahu_status = 0;
+    $this->status = 0;
+    $this->ahu_water_in = 30;
+    $this->ahu_water_out = 30;
+    $this->ahu_air_in = 30;
+    $this->ahu_air_out = 30;
+
 
     $this->load();
     $this->set();
+    $this->get();
 
 
 
@@ -57,6 +73,8 @@ $read =function(){
     $this->load($this->chiller_id);
     $this->set();
     $this->get();
+    $this->speed_ahu();
+
 };
 
 $load = function(){
@@ -85,6 +103,20 @@ $load = function(){
 };
 $set = function(){
     $data = chiller::find($this->chiller_id);
+
+    if (!$this->ahu_status ==1) {
+        chiller::where('id',$this->chiller_id)->update([
+            'status'=> 0,
+        ]);
+        $this->status = 0;
+
+        for ($i=0; $i < 4; $i++) {
+
+            unset($this->condensor_switch[$i]);
+            unset($this->condensor_rpm[$i]);
+        }
+        return false;
+    };
     if ($this->status == 1) {
 
 
@@ -104,6 +136,7 @@ $set = function(){
 
         } elseif ($this->c_load == 20) {
 
+            // updating Chiller
             chiller::where('id',$this->chiller_id)->update([
                     'discharge_temp'	    => 40,
                     'discharge_pressure'	=> 150,
@@ -113,6 +146,18 @@ $set = function(){
                     'chw_out_temp'	        => 25,
                     'room_temp'             => 27,
             ]);
+
+
+            // updating ahu
+            ahu::where('chiller_id', $this->chiller_id)->update([
+                'water_in_temp' => 25,
+                'water_out_temp' => 30,
+                'air_in_temp' => 30,
+                'air_out_temp' => 25,
+            ]);
+
+
+
             for ($i=0; $i < 4; $i++) {
                 $this->condensor_speed[$i] = .8;
             }
@@ -129,6 +174,12 @@ $set = function(){
                 'chw_out_temp'	        => 20,
                 'room_temp'             => 24,
             ]);
+            ahu::where('chiller_id', $this->chiller_id)->update([
+               'water_in_temp' => 22,
+               'water_out_temp' => 27,
+               'air_in_temp' => 24,
+               'air_out_temp' => 20,
+            ]);
 
             for ($i=0; $i < 4; $i++) {
                 $this->condensor_speed[$i] = .6;
@@ -144,6 +195,12 @@ $set = function(){
                 'chw_in_temp'	        => 12,
                 'chw_out_temp'	        => 17,
                 'room_temp'             => 22,
+            ]);
+            ahu::where('chiller_id', $this->chiller_id)->update([
+                'water_in_temp' => 19,
+                'water_out_temp' => 24,
+                'air_in_temp' => 24,
+                'air_out_temp' => 19,
             ]);
 
             for ($i=0; $i < 4; $i++) {
@@ -162,8 +219,15 @@ $set = function(){
                 'chw_out_temp'	        => 15,
                 'room_temp'             => 19,
             ]);
+            ahu::where('chiller_id', $this->chiller_id)->update([
+                'water_in_temp' => 17,
+                'water_out_temp' => 22,
+                'air_in_temp' => 22,
+                'air_out_temp' => 17,
+            ]);
+
             for ($i=0; $i < 4; $i++) {
-                $this->condensor_speed[$i] = .2;
+                $this->condensor_speed[$i] = .8;
             }
 
         } elseif ($this->c_load == 100) {
@@ -177,9 +241,16 @@ $set = function(){
                 'chw_out_temp'	        => 13,
                 'room_temp'             => 17,
             ]);
+            ahu::where('chiller_id', $this->chiller_id)->update([
+                'water_in_temp' => 15,
+                'water_out_temp' => 20,
+                'air_in_temp' => 19,
+                'air_out_temp' => 14,
+            ]);
+
 
             for ($i=0; $i < 4; $i++) {
-                $this->condensor_speed[$i] = .1;
+                $this->condensor_speed[$i] = .9;
             }
 
         }
@@ -213,78 +284,139 @@ $get = function(){
     $this->rt = $data->room_temp;
     $this->status = $data->status;
 
+    $ahu =   ahu::where('chiller_id', $this->chiller_id)->first();
+
+    $this->ahu_water_in = $ahu->water_in_temp;
+    $this->ahu_water_out = $ahu->water_out_temp;
+    $this->ahu_air_in = $ahu->air_in_temp;
+    $this->ahu_air_out = $ahu->air_out_temp;
+
     $this->loading = false;
 };
+$ahu_switch = function(){
+
+
+    $ahu = ahu::where('chiller_id', $this->chiller_id)->first();
+
+    $s = !$ahu->status;
+    $this->ahu_status = $s;
+
+
+
+    if ($s == 1) {
+        $this->ahu_speed = .2;
+
+        ahu::where('chiller_id', $this->chiller_id)->update([
+            'status' => $s,
+        ]);
+    }
+    else{
+
+        $this->ahu_speed = 0;
+
+        ahu::where('chiller_id', $this->chiller_id)->update([
+            'status' => $s,
+        ]);
+
+    };
+
+
+};
 $chiller_switch = function(){
-    $data = chiller::find($this->chiller_id);
+
+
+        if (!$this->ahu_status) {
+            return false;
+        };
+        $this->loading = 1;
+        $data = chiller::find($this->chiller_id);
 
         $a = !$data->status;
+        $this->status = $a;
 
         if( $a ==1  ){
+
             for ($i=0; $i < 4; $i++) {
                 array_push($this->condensor_switch ,1);
                 array_push( $this->condensor_rpm ,800);
             }
-            sleep(2);
+
             chiller::where('id',$this->chiller_id)->update([
                 'status'=> $a,
             ]);
 
         }
         else{
+
             chiller::where('id',$this->chiller_id)->update([
                 'status'=> $a,
             ]);
-            sleep(1);
+
             for ($i=0; $i < 4; $i++) {
+
                 unset($this->condensor_switch[$i]);
                 unset($this->condensor_rpm[$i]);
             }
         }
 
 
-        $this->status = $a;
+
+        $this->loading = 0;
+};
+$speed_ahu = function(){
+    if ($this->rt > 25 and $this->rt  <= 30) {
+       $this->ahu_speed = .1;
+    }
+    if ($this->rt > 20 and $this->rt  <= 25) {
+        $this->ahu_speed = .3;
+    }
+    if ($this->rt > 15 and $this->rt  <= 20) {
+        $this->ahu_speed = .6;
+    }
+    if ($this->rt > 10 and $this->rt  <= 15) {
+        $this->ahu_speed = .9;
+    }
 };
 
 
-
-
-
-//
-
 ?>
 
-<div>
-    <div class="row" wire:poll.visible='read'>
+<div wire:poll.visible = 'read'>
+    @if($loading ==1 )
+    <div class="loading_state" >
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border avatar-lg text-primary m-2" role="status"></div>
+                </div>
+            </div> <!-- end col -->
+        </div>
+    </div>
+    @endif
+    <div class="row" >
         <div class="col-12 mt-3">
             <div class="card  ">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div style="width: 80%">
-                            <div class="chart-item">
-                                <label for="">
-                                    Compressor Load: {{ $c_load }} %
-                                </label>
-                                <label for="">
-                                Room Temp: {{ $rt }} &deg;C
-                                </label>
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="customSwitch1" {{$status ? 'checked': ''}}  wire:change='chiller_switch'>
-                                    {{-- <input type="checkbox" data-plugin="switchery" data-color="#1bb99a" data-secondary-color="#ff5d48" /> --}}
-                                    <label class="custom-control-label text-{{$status ? 'danger': 'success'}}" for="customSwitch1">{{$status ? 'On': 'Off'}}</label>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div style= "width: 80%" >
+                            <div class="d-flex justify-content-around" >
+                                <h4 >  Compressor Load: {{ $c_load }} %  </h4>
+                                <h4 for=""> Room Temp: {{ $rt }} &deg;C </h4>
+                                <div class="button" wire:click='chiller_switch' >
+                                    <img src="{{asset('web/assets/images/'. ($status ==1 ?'on':'off').".png")}}" alt="" srcset="">
                                 </div>
-
-
-
+                                <div class="button" wire:click='ahu_switch' >
+                                    <img src="{{asset('web/assets/images/'. ($ahu_status ==1 ?'on':'off').".png")}}" alt="" srcset="">
+                                </div>
                             </div>
                         </div>
                         <a href="{{route('bms.dashboard')}}" wire:navigate class="btn btn-primary btn-sm " style="height: 32px">Back</a>
                     </div>
-
                 </div>
 
             </div>
         </div>
+
         <div class="col-12 col-md-6 col-xl-2 mt-3"  >
             <div class="card">
                 <div class="card-body" >
@@ -406,5 +538,100 @@ $chiller_switch = function(){
 
         </div><!-- end col-->
     </div>
+    <div class="row" >
+        <div class="col-12 col-md-6 col-xl-2 mt-3"  >
+            <div class="card">
+                <div class="card-body" >
+                    <div class="text-center" dir="ltr">
+                        <div class="guage_holder">
+                            <h5> Cond. 1</h5>
+                            <div class="fan">
+                                <img style="animation:{{array_key_exists(0, $condensor_switch) ? 'startfan '.  $condensor_speed[0].'s infinite linear' :''}};" class="fan_img" src="{{ asset('web/assets/images/condensor_fan.png') }}" alt="" srcset="">
+                            </div>
+                        </div>
+                        <h6 class="text-muted mt-2">R.P.M:  {{array_key_exists(0, $condensor_rpm) ? ($condensor_speed[0] == .1 ? '1500':($condensor_speed[0] == .2 ? '1200':($condensor_speed[0] == .4 ?'1000':($condensor_speed[0] == .6 ?'950':($condensor_speed[0] == .6 ?'800':($condensor_speed[0] == .8 ?'750':'')))))) :'0'}} rpm</h6>
+                    </div> <!-- end .text-center -->
+                </div>
+            </div> <!-- end card -->
+
+        </div><!-- end col-->
+        <div class="col-12 col-md-6 col-xl-2 mt-3"  >
+            <div class="card">
+                <div class="card-body" >
+                    <div class="text-center" dir="ltr">
+                        <div class="guage_holder">
+                            <h5> Cond. 1</h5>
+                            <div class="fan">
+                                <img style="animation:{{array_key_exists(1, $condensor_switch) ? 'startfan '.  $condensor_speed[1].'s infinite linear' :''}};" class="fan_img" src="{{ asset('web/assets/images/condensor_fan.png') }}" alt="" srcset="">
+                            </div>
+                        </div>
+                        <h6 class="text-muted mt-2">R.P.M:  {{array_key_exists(1, $condensor_rpm) ? ($condensor_speed[1] == .1 ? '1500':($condensor_speed[1] == .2 ? '1200':($condensor_speed[1] == .4 ?'1000':($condensor_speed[1] == .6 ?'950':($condensor_speed[1] == .6 ?'800':($condensor_speed[1] == .8 ?'750':'')))))) :'0'}} rpm</h6>
+                    </div> <!-- end .text-center -->
+                </div>
+            </div> <!-- end card -->
+
+        </div><!-- end col-->
+        <div class="col-12 col-md-6 col-xl-2 mt-3"  >
+            <div class="card">
+                <div class="card-body" >
+                    <div class="text-center" dir="ltr">
+                        <div class="guage_holder">
+                            <h5> Cond. 1</h5>
+                            <div class="fan">
+                                <img style="animation:{{array_key_exists(2, $condensor_switch) ? 'startfan '.  $condensor_speed[2].'s infinite linear' :''}};" class="fan_img" src="{{ asset('web/assets/images/condensor_fan.png') }}" alt="" srcset="">
+                            </div>
+                        </div>
+                        <h6 class="text-muted mt-2">R.P.M:  {{array_key_exists(2, $condensor_rpm) ? ($condensor_speed[2] == .1 ? '1500':($condensor_speed[2] == .2 ? '1200':($condensor_speed[2] == .4 ?'1000':($condensor_speed[2] == .6 ?'950':($condensor_speed[2] == .6 ?'800':($condensor_speed[2] == .8 ?'750':'')))))) :'0'}} rpm</h6>
+                    </div> <!-- end .text-center -->
+                </div>
+            </div> <!-- end card -->
+
+        </div><!-- end col-->
+        <div class="col-12 col-md-6 col-xl-2 mt-3"  >
+            <div class="card">
+                <div class="card-body" >
+                    <div class="text-center" dir="ltr">
+                        <div class="guage_holder">
+                            <h5> Cond. 1</h5>
+                            <div class="fan">
+                                <img style="animation:{{array_key_exists(3, $condensor_switch) ? 'startfan '.  $condensor_speed[3].'s infinite linear' :''}};" class="fan_img" src="{{ asset('web/assets/images/condensor_fan.png') }}" alt="" srcset="">
+                            </div>
+                        </div>
+                        <h6 class="text-muted mt-2">R.P.M:  {{array_key_exists(3, $condensor_rpm) ? ($condensor_speed[3] == .1 ? '1500':($condensor_speed[3] == .2 ? '1200':($condensor_speed[3] == .4 ?'1000':($condensor_speed[3] == .6 ?'950':($condensor_speed[3] == .6 ?'800':($condensor_speed[3] == .8 ?'750':'')))))) :'0'}} rpm</h6>
+                    </div> <!-- end .text-center -->
+                </div>
+            </div> <!-- end card -->
+
+        </div><!-- end col-->
+        <div class="col-12 col-md-6 col-xl-4 mt-3"  >
+            <div class="card">
+                <div class="card-body" >
+                    <div class="text-center" dir="ltr">
+                        <h5> AHU. 1</h5>
+                        <div class="ahu">
+                            <div class="reading">
+                                <p>In</p>
+                                <h5>Air: {{$ahu_air_in}}&deg;C</h5>
+                                <h5>Water: {{$ahu_water_in}}&deg;C</h5>
+                            </div>
+                            <div class="fan">
+                                <img style="animation:{{ $ahu_status == 1 ? 'startfan': ''}} {{ $ahu_speed.'s'}} infinite linear" class="fan_img" src="{{ asset('web/assets/images/condensor_fan.png') }}" alt="" srcset="">
+                            </div>
+                            <div class="reading">
+                                <p>Out</p>
+                                <h5>Air: {{$ahu_air_out}}&deg;C</h5>
+                                <h5>Water: {{$ahu_water_out}}&deg;C</h5>
+                            </div>
+                        </div>
+
+                        <p style="margin:4px auto 0px auto ">Room temp: {{$rt}}&deg;C</p>
+                    </div> <!-- end .text-center -->
+                </div>
+            </div> <!-- end card -->
+
+        </div><!-- end col-->
+
+    </div>
+
 
 </div>

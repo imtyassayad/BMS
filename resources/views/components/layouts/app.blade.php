@@ -18,7 +18,8 @@
          <link href="{{asset('web/assets/libs/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
          <link href="{{asset('web/assets/libs/selectize/css/selectize.bootstrap3.css')}}" rel="stylesheet" type="text/css" />
          <link href="{{asset('web/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css')}}" rel="stylesheet" type="text/css" />
-
+  <!-- ION Slider -->
+  <link href="/web/assets/libs/ion-rangeslider/css/ion.rangeSlider.min.css" rel="stylesheet" type="text/css"/>
         <!-- App css -->
         <link href="/web/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bs-stylesheet" />
         <link href="{{asset('web/assets/css/app.min.css')}}" rel="stylesheet" type="text/css" id="app-stylesheet" />
@@ -1313,10 +1314,16 @@
         <script src="{{asset('web/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js')}}"></script>
         <script src="{{asset('web/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js')}}"></script>
 
-
+        <
+        @stack('scripts')
         <!-- init js -->
         <script src="{{asset('web/assets/js/pages/form-advanced.init.js')}}"></script>
 
+        <!-- Ion Range Slider-->
+        <script src="assets/libs/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+
+        <!-- Range slider init js-->
+        <script src="assets/js/pages/range-sliders.init.js"></script>
 
          <!-- Widgets demo js-->
          <script src="{{asset('web/assets/js/pages/widgets.init.js')}}"></script>
@@ -1329,6 +1336,8 @@
 
         <!-- App js -->
         <script src="{{asset('web/assets/js/app.min.js')}}"></script>
+
+
 
     </body>
 
