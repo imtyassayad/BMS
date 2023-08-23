@@ -10,14 +10,14 @@
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="assets/images/favicon.ico">
+        <link rel="shortcut icon" href="{{asset('web/assets/images/favicon.ico')}}">
 
 		<!-- App css -->
-		<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bs-stylesheet" />
-		<link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet" />
+		<link href="{{asset('web/assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" id="bs-stylesheet" />
+		<link href="{{asset('web/assets/css/app.min.css')}}" rel="stylesheet" type="text/css" id="app-stylesheet" />
 
 		<!-- icons -->
-		<link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+		<link href="{{asset('web/assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
 
     </head>
 
@@ -140,5 +140,4 @@
 
     </body>
 
-<!-- Mirrored from coderthemes.com/minton_html/layouts/default/auth-login-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 01 Jul 2022 02:21:24 GMT -->
 </html>

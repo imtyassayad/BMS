@@ -21,12 +21,12 @@
         <!-- ION Slider -->
         <link href="{{asset('web/assets/libs/ion-rangeslider/css/ion.rangeSlider.min.css')}}" rel="stylesheet" type="text/css"/>
         <!-- App css -->
-        <link href="{{asset('web/assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" id="bs-stylesheet" />
+        <link href="{{asset('web/assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" id="" />
         <link href="{{asset('web/assets/css/app.min.css')}}" rel="stylesheet" type="text/css" id="app-stylesheet" />
 
         <!-- icons -->
         <link href="{{asset('web/assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
-
+        @stack('innerStyle')
     </head>
 
     <body class="loading" data-layout-mode="horizontal" data-layout='{"mode": "light", "width": "fluid", "menuPosition": "fixed", "topbar": {"color": "dark"}, "showRightSidebarOnPageLoad": true}'>

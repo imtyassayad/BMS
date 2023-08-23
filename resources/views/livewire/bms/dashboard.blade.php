@@ -1,15 +1,28 @@
 <?php
 
-use function Livewire\Volt\{computed,state};
+use function Livewire\Volt\{computed,state,mount};
 use App\Models\chiller;
+use App\Models\tank;
 
-state(['chillers'=> chiller::all()]);
+
+state(['chillers','tanks']);
+
+mount(function(){
+        $this->chillers = chiller::all();
+        $this->tanks = tank::all();
+
+    });
+
+
+
+
+
 
 
 
 ?>
 
-<div class="content">
+<div class="content" >
 
     <!-- Start Content-->
     <div class="container-fluid">
@@ -33,13 +46,16 @@ state(['chillers'=> chiller::all()]);
 
         <div class="row " >
             @foreach ($chillers as $item)
-
                 @livewire('bms.chiller', ['chiller' => $item])
-
             @endforeach
-
-
         </div><!-- end row -->
+
+
+        <div class="row" >
+            @foreach ($tanks as $item)
+            @livewire('bms.tank', ['tank' => $item])
+            @endforeach
+        </div>
 
 
 

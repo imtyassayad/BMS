@@ -139,8 +139,6 @@ $set = function(){
 
 
 $getdata = function(){
-
-
     $this->load();
     $this->set();
     $this->chiller = chiller::find($this->id);
@@ -160,7 +158,7 @@ $getdata = function(){
                         <div  class="progress-bar" role="progressbar" style="height:1rem;width: {{$chiller->room_temp}}%; background-color: {{$chiller->room_temp > 20 ?'green':'lightgreen' }};color: {{$chiller->room_temp > 20 ?'white':'black' }}; padding:2px 2px;" aria-valuenow="{{$chiller->room_temp}}" aria-valuemin="0" aria-valuemax="100">{{$chiller->room_temp}}&deg;C</div>
                     </div>
 
-                <h6 class="text-muted mt-2">Compressor Load: {{$c_load}}</h6>
+                <h6 class="text-muted mt-2">Compressor Load: {{$c_load}}%</h6>
             </div> <!-- end .text-center -->
         </div>
     </div> <!-- end card -->

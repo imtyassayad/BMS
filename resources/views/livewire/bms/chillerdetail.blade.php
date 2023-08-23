@@ -36,7 +36,12 @@ mount(function($id){
 
 
     $this->chiller_id = $id;
-    // $this->loading = 1;
+    $this->loading = 1;
+
+    $a = ahu::where('chiller_id',$this->chiller_id)->first();
+    $this->ahu_status = $a->status;
+    $c = chiller::find($this->chiller_id);
+    $this->status = $c->status;
 
     $this->intial = -135;
     $this->intial_t = -115;
@@ -53,8 +58,7 @@ mount(function($id){
     $this->condensor_rpm=[];
     $this->condensor_speed=[0,0,0,0];
     $this->ahu_speed =0;
-    $this->ahu_status = 0;
-    $this->status = 0;
+
     $this->ahu_water_in = 30;
     $this->ahu_water_out = 30;
     $this->ahu_air_in = 30;
@@ -65,10 +69,7 @@ mount(function($id){
     $this->set();
     $this->get();
 
-    $a = ahu::where('chiller_id',$this->chiller_id)->first();
-    $this->ahu_status = $a->status;
-    $c = chiller::find($this->chiller_id);
-    $this->status = $c->status;
+
 
 });
 
@@ -413,7 +414,7 @@ $speed_ahu = function(){
                                 </div>
                             </div>
                         </div>
-                        <a href="{{route('bms.dashboard')}}" wire:navigate class="btn btn-primary btn-sm " style="height: 32px">Back</a>
+                        <a href="{{route('bms.dashboard')}}"  class="btn btn-primary btn-sm " style="height: 32px">Back</a>
                     </div>
                 </div>
 
