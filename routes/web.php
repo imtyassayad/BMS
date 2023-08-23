@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('bms')->name('bms.')->group(function(){
         Volt::route('/','bms.dashboard')->name('dashboard');
         Volt::route('chiller/{id}','bms.chillerdetail')->name('chiller');
+        Volt::route('tank', 'bms.tanks')->name('tank');
 
     });
 });

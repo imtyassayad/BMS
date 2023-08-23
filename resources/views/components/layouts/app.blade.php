@@ -1314,7 +1314,7 @@
         <script src="{{asset('web/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js')}}"></script>
         <script src="{{asset('web/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js')}}"></script>
 
-        <
+
         @stack('scripts')
         <!-- init js -->
         <script src="{{asset('web/assets/js/pages/form-advanced.init.js')}}"></script>

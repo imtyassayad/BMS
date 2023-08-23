@@ -8460,6 +8460,9 @@ span.flatpickr-weekday {
     left: 25%;
     padding:2px;
     background-color: rgba(255, 255, 255, .8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .switch{

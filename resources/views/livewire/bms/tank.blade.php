@@ -56,7 +56,7 @@ $level = function(){
         <div class="card-body" wire:poll.visible='gettankdata'>
             <div class="d-flex justify-content-between">
                 <h2 class="value">{{$tank->tank_name}}</h2>
-                <a href="" class="btn btn-primary btn-sm h-2">View</a>
+                <a href="{{route('bms.tank')}}" class="btn btn-primary btn-sm h-2">View</a>
             </div>
             <div class="d-flex justify-content-between">
                 <h3 class="value" style="color:blue">{{$tank->capacity.' Lit'}}</h3>
